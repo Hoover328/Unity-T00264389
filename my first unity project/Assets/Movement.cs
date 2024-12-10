@@ -9,6 +9,12 @@ public class Movement : MonoBehaviour
     float rotationspeed = 50;
     float speed = 50;
     Rigidbody rb;
+    float jump;
+    float notjump;
+    float groundtime;
+    float jumptime;
+    float betweenjump;
+    float jumpspeed = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +64,24 @@ public class Movement : MonoBehaviour
         else
         {
             animator.SetBool("Moving", false);
+
+        }
+        if (characterController.isGrounded)
+        {
+            groundtime = Time.time;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jumptime = Time.time;
+        }
+
+        if (Time.time - groundtime <= betweenjump)
+            {
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            animator.SetBool("Jump", false);
 
         }
     }
