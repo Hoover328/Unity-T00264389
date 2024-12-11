@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    //variables for animation
     private Animator animator;
     private CharacterController characterController;
+    //variables for speed
     float turningSpeed = 20;
     float speed = 2;
     Rigidbody rb;
@@ -14,6 +16,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //rigidbody and animator components
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
     }
@@ -33,26 +36,26 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            //transform.position += transform.up * Time.deltaTime * 10;
-            //acceleration += thrustValue * transform.up;
+            //If W is pressed, moves forwards
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            //if a is pressed, roll left
+            //If A is pressed, moves left
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            //if a is pressed, roll right
+            //If D is pressed, moves right
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            //if up arrow is pressed, pitch up
+            //If S is pressed, moves down
             transform.Translate(Vector3.back * speed * Time.deltaTime);
         }
        
+        //Checks if character is moving
         transform.Rotate(Vector3.up, Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime);
         if (movementDirection != Vector3.zero)
         {
@@ -66,6 +69,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("Moving", false);
 
         }
+        //Respawns player to spawn + launches and stacks
         if (Input.GetKey(KeyCode.F5))
             transform.position = new Vector3(magnitude, 2, 1);
 
