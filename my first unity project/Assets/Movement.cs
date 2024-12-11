@@ -66,8 +66,11 @@ public class Movement : MonoBehaviour
             animator.SetBool("Moving", false);
 
         }
-      
+        if (Input.GetKey(KeyCode.F5))
+            transform.position = new Vector3(magnitude, 2, 1);
 
-        
+
+
+
     }
 }
