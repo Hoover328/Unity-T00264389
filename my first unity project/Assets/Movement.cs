@@ -6,15 +6,11 @@ public class Movement : MonoBehaviour
 {
     private Animator animator;
     private CharacterController characterController;
-    float rotationspeed = 50;
-    float speed = 50;
+    float turningSpeed = 20;
+    float speed = 10;
     Rigidbody rb;
-    float jump;
-    float notjump;
-    float groundtime;
-    float jumptime;
-    float betweenjump;
-    float jumpspeed = 50;
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +24,13 @@ public class Movement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 movementDirection = new Vector3(horizontal, 0, vertical);
+        float magnitude = Mathf.Clamp01(movementDirection.magnitude * speed);
+
+        
+
+     
+        
+
         if (Input.GetKey(KeyCode.W))
         {
             //transform.position += transform.up * Time.deltaTime * 10;
@@ -49,40 +52,22 @@ public class Movement : MonoBehaviour
             //if up arrow is pressed, pitch up
             transform.Translate(Vector3.back * speed * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //if up arrow is pressed, pitch up
-            transform.Translate(Vector3.up * speed * Time.deltaTime);
-        }
+       
+        transform.Rotate(Vector3.up, Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime);
         if (movementDirection != Vector3.zero)
         {
             animator.SetBool("Moving", true);
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationspeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turningSpeed * Time.deltaTime);
         }
         else
         {
             animator.SetBool("Moving", false);
 
         }
-        if (characterController.isGrounded)
-        {
-            groundtime = Time.time;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            jumptime = Time.time;
-        }
+      
 
-        if (Time.time - groundtime <= betweenjump)
-            {
-            animator.SetBool("Jump", true);
-        }
-        else
-        {
-            animator.SetBool("Jump", false);
-
-        }
+        
     }
 }
