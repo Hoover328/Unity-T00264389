@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
     private Animator animator;
     private CharacterController characterController;
     float turningSpeed = 20;
-    float speed = 10;
+    float speed = 2;
     Rigidbody rb;
    
 
