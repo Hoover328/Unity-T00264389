@@ -13,6 +13,10 @@ public class Item : MonoBehaviour
             Inventory.Collect();
             gameObject.SetActive(false);
         }
+        if (Inventory = null)
+        {
+            print("Hello");
+        }
 
 
     }
